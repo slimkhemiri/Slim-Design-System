@@ -1,0 +1,58 @@
+:host {
+  display: block;
+}
+
+.root {
+  --accent: var(--sl-info);
+  --bg: color-mix(in srgb, var(--accent), var(--sl-surface) 92%);
+
+  border: 1px solid color-mix(in srgb, var(--accent), var(--sl-border) 65%);
+  border-radius: var(--sl-radius-2);
+  background: var(--bg);
+  color: var(--sl-text);
+  padding: var(--sl-space-3) var(--sl-space-4);
+  position: relative;
+}
+
+.root::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--accent);
+  border-top-left-radius: var(--sl-radius-2);
+  border-bottom-left-radius: var(--sl-radius-2);
+}
+
+.content {
+  padding-left: var(--sl-space-2);
+}
+
+.heading {
+  font: 700 var(--sl-font-size-3) / 1.2 var(--sl-font-family);
+  margin-bottom: var(--sl-space-2);
+}
+
+.body {
+  font: 500 var(--sl-font-size-2) / 1.4 var(--sl-font-family);
+  color: var(--sl-text);
+}
+
+.v-info {
+  --accent: var(--sl-info);
+}
+
+.v-success {
+  --accent: var(--sl-success);
+}
+
+.v-warning {
+  --accent: var(--sl-warning);
+}
+
+.v-danger {
+  --accent: var(--sl-danger);
+}
+
