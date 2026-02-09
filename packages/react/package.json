@@ -1,7 +1,7 @@
 {
-  "name": "@slim-ds/react",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@slimkhemiri/react-design-system",
+  "version": "0.1.1",
+  "private": false,
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,19 +11,39 @@
       "import": "./dist/index.js"
     }
   },
-  "files": ["dist/"],
+  "files": [
+    "dist/"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "clean": "node ./scripts/clean.mjs"
+    "clean": "node ./scripts/clean.mjs",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "build-storybook -s public"
   },
   "dependencies": {
+    "@slim-ds/web-components": "^0.1.0",
     "@stencil/react-output-target": "^0.8.2",
-    "@slim-ds/web-components": "workspace:*",
     "react": "^18.3.1"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^5.0.1",
+    "@storybook/addon-a11y": "^10.2.7",
+    "@storybook/addon-docs": "^10.2.7",
+    "@storybook/addon-onboarding": "^10.2.7",
+    "@storybook/addon-vitest": "^10.2.7",
+    "@storybook/react-vite": "^10.2.7",
     "@types/react": "^18.3.3",
-    "typescript": "^5.5.4"
+    "@types/react-dom": "^18.3.0",
+    "@vitest/browser-playwright": "^4.0.18",
+    "@vitest/coverage-v8": "^4.0.18",
+    "chromatic": "^15.0.0",
+    "playwright": "^1.58.2",
+    "react-dom": "^18.3.1",
+    "storybook": "^10.2.7",
+    "typescript": "^5.5.4",
+    "vitest": "^4.0.18"
   }
 }
-

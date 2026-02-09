@@ -9,6 +9,14 @@
   },
   "devDependencies": {
     "turbo": "^2.4.0"
+  },
+  "dependencies": {
+    "@slim-ds/web-components": "file:packages/web-components/slim-ds-web-components-0.1.0.tgz",
+    "@slimkhemiri/react-design-system": "file:packages/react/slimkhemiri-react-design-system-0.1.1.tgz",
+    "@types/react": "^19.2.13",
+    "@types/react-dom": "^19.2.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "typescript": "^5.9.3"
   }
 }
-
