@@ -8,7 +8,7 @@ import {
   SlimSelect,
   SlimSwitch,
   SlimTextarea
-} from "@slim-ds/react";
+} from "@slimkhemiri/react-design-system";
 
 export function App() {
   const [theme, setTheme] = React.useState<"light" | "dark" | "hc">("light");

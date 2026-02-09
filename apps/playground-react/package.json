@@ -9,7 +9,7 @@
     "clean": "node ./scripts/clean.mjs"
   },
   "dependencies": {
-    "@slim-ds/react": "workspace:*",
+    "@slimkhemiri/react-design-system": "workspace:*",
     "@slim-ds/tokens": "workspace:*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
