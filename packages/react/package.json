@@ -27,7 +27,7 @@
     "prepack": "npm run build"
   },
   "dependencies": {
-    "@slimkhemiri/web-components": "workspace:*",
+    "@slimkhemiri/web-components": "^0.1.1",
     "@stencil/react-output-target": "^0.8.2"
   },
   "peerDependencies": {
