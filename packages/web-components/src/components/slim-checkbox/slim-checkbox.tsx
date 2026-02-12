@@ -1,4 +1,5 @@
 import { Component, Event, EventEmitter, Prop, State, h } from "@stencil/core";
+import { createId } from "../../utils/id";
 
 @Component({
   tag: "slim-checkbox",
@@ -22,7 +23,7 @@ export class SlimCheckbox {
   @State() private _id = "";
 
   componentWillLoad() {
-    this._id = this.checkboxId ?? `slim-checkbox-${Math.random().toString(16).slice(2)}`;
+    this._id = this.checkboxId ?? createId("slim-checkbox");
   }
 
   private onChange = (e: Event) => {

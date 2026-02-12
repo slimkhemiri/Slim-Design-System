@@ -1,10 +1,17 @@
+/* Global styles injected once by Stencil (outside Shadow DOM).
+   This is the right place to load design tokens (CSS variables). */
+
+@import "./generated/tokens.css";
+
 :root {
   color: var(--sl-text);
   background: var(--sl-surface);
   font-family: var(--sl-font-family);
+  color-scheme: light dark;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
-

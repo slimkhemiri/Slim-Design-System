@@ -1,4 +1,5 @@
 import { Component, Event, EventEmitter, Prop, State, h } from "@stencil/core";
+import { createId } from "../../utils/id";
 
 @Component({
   tag: "slim-input",
@@ -23,7 +24,7 @@ export class SlimInput {
   @State() private _id = "";
 
   componentWillLoad() {
-    this._id = this.inputId ?? `slim-input-${Math.random().toString(16).slice(2)}`;
+    this._id = this.inputId ?? createId("slim-input");
   }
 
   private onInput = (e: Event) => {

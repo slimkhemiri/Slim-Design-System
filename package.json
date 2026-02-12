@@ -5,18 +5,18 @@
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
-    "clean": "turbo clean"
+    "clean": "turbo clean",
+    "lint": "turbo lint"
   },
   "devDependencies": {
-    "turbo": "^2.4.0"
-  },
-  "dependencies": {
-    "@slim-ds/web-components": "file:packages/web-components/slim-ds-web-components-0.1.0.tgz",
-    "@slimkhemiri/react-design-system": "file:packages/react/slimkhemiri-react-design-system-0.1.1.tgz",
-    "@types/react": "^19.2.13",
-    "@types/react-dom": "^19.2.3",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "@eslint/js": "^9.19.0",
+    "eslint": "^9.19.0",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "pnpm": "9.15.4",
+    "typescript-eslint": "^8.22.0",
+    "turbo": "^2.4.0",
     "typescript": "^5.9.3"
   }
 }

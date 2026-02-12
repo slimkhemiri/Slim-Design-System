@@ -1,0 +1,6 @@
+**/tmp-consume/**
+**/tmp-install-test/**
+**/tmp-sb-out-webc/**
+**/*.tgz
+**/packages/**/node_modules/**
+**/apps/**/node_modules/**

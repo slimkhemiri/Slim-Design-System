@@ -1,6 +1,6 @@
 {
-  "name": "@slim-ds/web-components",
-  "version": "0.1.0",
+  "name": "@slimkhemiri/web-components",
+  "version": "0.1.1",
   "type": "module",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -16,6 +16,7 @@
       "import": "./loader/index.js",
       "require": "./loader/index.cjs.js"
     },
+    "./dist/components/*": "./dist/components/*",
     "./dist/*": "./dist/*",
     "./loader/*": "./loader/*"
   },
@@ -24,19 +25,25 @@
   "publishConfig": {
     "access": "public"
   },
-  "files": ["dist/", "loader/"],
+  "files": [
+    "dist/",
+    "loader/"
+  ],
   "scripts": {
-    "build": "npm --prefix ../tokens run build && stencil build",
-    "dev": "npm --prefix ../tokens run build && stencil build --watch --serve",
+    "build": "pnpm --filter @slim-ds/tokens build && node ./scripts/sync-tokens.mjs && stencil build",
+    "dev": "pnpm --filter @slim-ds/tokens build && node ./scripts/sync-tokens.mjs && stencil build --watch --serve",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "test": "stencil test --spec --e2e",
-    "clean": "node ./scripts/clean.mjs"
+    "clean": "node ./scripts/clean.mjs",
+    "prepack": "npm run build"
   },
   "dependencies": {},
   "devDependencies": {
     "@stencil/core": "^4.20.0",
     "@stencil/react-output-target": "^0.8.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "@types/node": "^20.14.10",
     "typescript": "^5.5.4"
   }
 }
-

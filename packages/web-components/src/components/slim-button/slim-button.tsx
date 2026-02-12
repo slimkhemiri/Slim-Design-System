@@ -1,16 +1,13 @@
 import { Component, Prop, h, Host } from "@stencil/core";
 
-type Variant = "primary" | "secondary" | "danger" | "ghost";
-type Size = "sm" | "md" | "lg";
-
 @Component({
   tag: "slim-button",
   styleUrl: "slim-button.css",
   shadow: true
 })
 export class SlimButton {
-  @Prop() variant: Variant = "primary";
-  @Prop() size: Size = "md";
+  @Prop() variant: "primary" | "secondary" | "danger" | "ghost" = "primary";
+  @Prop() size: "sm" | "md" | "lg" = "md";
   @Prop() disabled = false;
   @Prop() loading = false;
   @Prop() type: "button" | "submit" | "reset" = "button";
@@ -27,7 +24,7 @@ export class SlimButton {
             <slot />
           </span>
           {this.loading ? (
-            <span class="spinner" role="status" aria-label="Loading" />
+            <span class="spinner" role="status" aria-live="polite" aria-label="Loading" />
           ) : null}
         </button>
       </Host>

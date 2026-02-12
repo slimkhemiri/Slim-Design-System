@@ -5,23 +5,25 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { SlimPlaygroundSidebarItem } from "./components/slim-playground-sidebar/slim-playground-sidebar";
+export { SlimPlaygroundSidebarItem } from "./components/slim-playground-sidebar/slim-playground-sidebar";
 export namespace Components {
     interface SlimAlert {
         "heading"?: string;
         /**
           * @default "info"
          */
-        "variant": Variant;
+        "variant": "info" | "success" | "warning" | "danger";
     }
     interface SlimBadge {
         /**
           * @default "md"
          */
-        "size": Size;
+        "size": "sm" | "md";
         /**
           * @default "neutral"
          */
-        "variant": Variant;
+        "variant": "neutral" | "primary" | "success" | "warning" | "danger";
     }
     interface SlimButton {
         /**
@@ -35,7 +37,7 @@ export namespace Components {
         /**
           * @default "md"
          */
-        "size": Size;
+        "size": "sm" | "md" | "lg";
         /**
           * @default "button"
          */
@@ -43,7 +45,7 @@ export namespace Components {
         /**
           * @default "primary"
          */
-        "variant": Variant;
+        "variant": "primary" | "secondary" | "danger" | "ghost";
     }
     interface SlimCheckbox {
         "checkboxId"?: string;
@@ -89,6 +91,56 @@ export namespace Components {
          */
         "value": string;
     }
+    interface SlimModal {
+        /**
+          * Optional modal title
+         */
+        "heading"?: string;
+        /**
+          * Whether the modal is open
+          * @default false
+         */
+        "open": boolean;
+    }
+    interface SlimPlaygroundSidebar {
+        /**
+          * Currently active item id.
+         */
+        "active"?: string;
+        /**
+          * Whether the sidebar is collapsed (icon-only rail).
+          * @default false
+         */
+        "collapsed": boolean;
+        /**
+          * Show/hide the collapse toggle button.
+          * @default true
+         */
+        "collapsible": boolean;
+        /**
+          * Sidebar heading shown in the header.
+          * @default "Components"
+         */
+        "heading": string;
+        /**
+          * Menu items to render.
+          * @default []
+         */
+        "items": SlimPlaygroundSidebarItem[];
+        /**
+          * @default 24
+         */
+        "pinnedBottom": number;
+        /**
+          * @default 24
+         */
+        "pinnedLeft": number;
+        /**
+          * Fixed positioning offsets (in px).
+          * @default 24
+         */
+        "pinnedTop": number;
+    }
     interface SlimSelect {
         /**
           * @default false
@@ -101,7 +153,7 @@ export namespace Components {
         /**
           * @default []
          */
-        "options": Option[];
+        "options": { value: string; label: string; disabled?: boolean }[];
         /**
           * @default false
          */
@@ -161,6 +213,37 @@ export namespace Components {
          */
         "value": string;
     }
+    interface SlimTooltip {
+        /**
+          * Disables showing the tooltip via interactions.
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Max width of the tooltip bubble, in pixels.
+          * @default 240
+         */
+        "maxWidth": number;
+        /**
+          * Pixel offset between trigger and tooltip bubble.
+          * @default 8
+         */
+        "offset": number;
+        /**
+          * Controls tooltip visibility. Can be toggled by hover/focus by default.
+          * @default false
+         */
+        "open": boolean;
+        /**
+          * Where the tooltip appears relative to the trigger.
+          * @default "top"
+         */
+        "placement": Placement;
+        /**
+          * Tooltip text. If omitted, the default slot is used as tooltip content.
+         */
+        "text"?: string;
+    }
 }
 export interface SlimCheckboxCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -169,6 +252,14 @@ export interface SlimCheckboxCustomEvent<T> extends CustomEvent<T> {
 export interface SlimInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSlimInputElement;
+}
+export interface SlimModalCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSlimModalElement;
+}
+export interface SlimPlaygroundSidebarCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSlimPlaygroundSidebarElement;
 }
 export interface SlimSelectCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -181,6 +272,10 @@ export interface SlimSwitchCustomEvent<T> extends CustomEvent<T> {
 export interface SlimTextareaCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSlimTextareaElement;
+}
+export interface SlimTooltipCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSlimTooltipElement;
 }
 declare global {
     interface HTMLSlimAlertElement extends Components.SlimAlert, HTMLStencilElement {
@@ -235,6 +330,41 @@ declare global {
         prototype: HTMLSlimInputElement;
         new (): HTMLSlimInputElement;
     };
+    interface HTMLSlimModalElementEventMap {
+        "slimClose": void;
+    }
+    interface HTMLSlimModalElement extends Components.SlimModal, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSlimModalElementEventMap>(type: K, listener: (this: HTMLSlimModalElement, ev: SlimModalCustomEvent<HTMLSlimModalElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSlimModalElementEventMap>(type: K, listener: (this: HTMLSlimModalElement, ev: SlimModalCustomEvent<HTMLSlimModalElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSlimModalElement: {
+        prototype: HTMLSlimModalElement;
+        new (): HTMLSlimModalElement;
+    };
+    interface HTMLSlimPlaygroundSidebarElementEventMap {
+        "slimSelect": string;
+        "slimToggle": boolean;
+    }
+    interface HTMLSlimPlaygroundSidebarElement extends Components.SlimPlaygroundSidebar, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSlimPlaygroundSidebarElementEventMap>(type: K, listener: (this: HTMLSlimPlaygroundSidebarElement, ev: SlimPlaygroundSidebarCustomEvent<HTMLSlimPlaygroundSidebarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSlimPlaygroundSidebarElementEventMap>(type: K, listener: (this: HTMLSlimPlaygroundSidebarElement, ev: SlimPlaygroundSidebarCustomEvent<HTMLSlimPlaygroundSidebarElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSlimPlaygroundSidebarElement: {
+        prototype: HTMLSlimPlaygroundSidebarElement;
+        new (): HTMLSlimPlaygroundSidebarElement;
+    };
     interface HTMLSlimSelectElementEventMap {
         "slimChange": string;
     }
@@ -286,15 +416,36 @@ declare global {
         prototype: HTMLSlimTextareaElement;
         new (): HTMLSlimTextareaElement;
     };
+    interface HTMLSlimTooltipElementEventMap {
+        "slimShow": void;
+        "slimHide": void;
+    }
+    interface HTMLSlimTooltipElement extends Components.SlimTooltip, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSlimTooltipElementEventMap>(type: K, listener: (this: HTMLSlimTooltipElement, ev: SlimTooltipCustomEvent<HTMLSlimTooltipElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSlimTooltipElementEventMap>(type: K, listener: (this: HTMLSlimTooltipElement, ev: SlimTooltipCustomEvent<HTMLSlimTooltipElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSlimTooltipElement: {
+        prototype: HTMLSlimTooltipElement;
+        new (): HTMLSlimTooltipElement;
+    };
     interface HTMLElementTagNameMap {
         "slim-alert": HTMLSlimAlertElement;
         "slim-badge": HTMLSlimBadgeElement;
         "slim-button": HTMLSlimButtonElement;
         "slim-checkbox": HTMLSlimCheckboxElement;
         "slim-input": HTMLSlimInputElement;
+        "slim-modal": HTMLSlimModalElement;
+        "slim-playground-sidebar": HTMLSlimPlaygroundSidebarElement;
         "slim-select": HTMLSlimSelectElement;
         "slim-switch": HTMLSlimSwitchElement;
         "slim-textarea": HTMLSlimTextareaElement;
+        "slim-tooltip": HTMLSlimTooltipElement;
     }
 }
 declare namespace LocalJSX {
@@ -303,17 +454,17 @@ declare namespace LocalJSX {
         /**
           * @default "info"
          */
-        "variant"?: Variant;
+        "variant"?: "info" | "success" | "warning" | "danger";
     }
     interface SlimBadge {
         /**
           * @default "md"
          */
-        "size"?: Size;
+        "size"?: "sm" | "md";
         /**
           * @default "neutral"
          */
-        "variant"?: Variant;
+        "variant"?: "neutral" | "primary" | "success" | "warning" | "danger";
     }
     interface SlimButton {
         /**
@@ -327,7 +478,7 @@ declare namespace LocalJSX {
         /**
           * @default "md"
          */
-        "size"?: Size;
+        "size"?: "sm" | "md" | "lg";
         /**
           * @default "button"
          */
@@ -335,7 +486,7 @@ declare namespace LocalJSX {
         /**
           * @default "primary"
          */
-        "variant"?: Variant;
+        "variant"?: "primary" | "secondary" | "danger" | "ghost";
     }
     interface SlimCheckbox {
         "checkboxId"?: string;
@@ -383,6 +534,68 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface SlimModal {
+        /**
+          * Optional modal title
+         */
+        "heading"?: string;
+        /**
+          * Fired when the user requests closing the modal (backdrop click / close button / ESC)
+         */
+        "onSlimClose"?: (event: SlimModalCustomEvent<void>) => void;
+        /**
+          * Whether the modal is open
+          * @default false
+         */
+        "open"?: boolean;
+    }
+    interface SlimPlaygroundSidebar {
+        /**
+          * Currently active item id.
+         */
+        "active"?: string;
+        /**
+          * Whether the sidebar is collapsed (icon-only rail).
+          * @default false
+         */
+        "collapsed"?: boolean;
+        /**
+          * Show/hide the collapse toggle button.
+          * @default true
+         */
+        "collapsible"?: boolean;
+        /**
+          * Sidebar heading shown in the header.
+          * @default "Components"
+         */
+        "heading"?: string;
+        /**
+          * Menu items to render.
+          * @default []
+         */
+        "items"?: SlimPlaygroundSidebarItem[];
+        /**
+          * Emitted when a menu item is selected (detail = item id).
+         */
+        "onSlimSelect"?: (event: SlimPlaygroundSidebarCustomEvent<string>) => void;
+        /**
+          * Emitted when the user toggles collapse (detail = next collapsed).
+         */
+        "onSlimToggle"?: (event: SlimPlaygroundSidebarCustomEvent<boolean>) => void;
+        /**
+          * @default 24
+         */
+        "pinnedBottom"?: number;
+        /**
+          * @default 24
+         */
+        "pinnedLeft"?: number;
+        /**
+          * Fixed positioning offsets (in px).
+          * @default 24
+         */
+        "pinnedTop"?: number;
+    }
     interface SlimSelect {
         /**
           * @default false
@@ -396,7 +609,7 @@ declare namespace LocalJSX {
         /**
           * @default []
          */
-        "options"?: Option[];
+        "options"?: { value: string; label: string; disabled?: boolean }[];
         /**
           * @default false
          */
@@ -458,18 +671,51 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface SlimTooltip {
+        /**
+          * Disables showing the tooltip via interactions.
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Max width of the tooltip bubble, in pixels.
+          * @default 240
+         */
+        "maxWidth"?: number;
+        /**
+          * Pixel offset between trigger and tooltip bubble.
+          * @default 8
+         */
+        "offset"?: number;
+        "onSlimHide"?: (event: SlimTooltipCustomEvent<void>) => void;
+        "onSlimShow"?: (event: SlimTooltipCustomEvent<void>) => void;
+        /**
+          * Controls tooltip visibility. Can be toggled by hover/focus by default.
+          * @default false
+         */
+        "open"?: boolean;
+        /**
+          * Where the tooltip appears relative to the trigger.
+          * @default "top"
+         */
+        "placement"?: Placement;
+        /**
+          * Tooltip text. If omitted, the default slot is used as tooltip content.
+         */
+        "text"?: string;
+    }
 
     interface SlimAlertAttributes {
-        "variant": Variant;
+        "variant": "info" | "success" | "warning" | "danger";
         "heading": string;
     }
     interface SlimBadgeAttributes {
-        "variant": Variant;
-        "size": Size;
+        "variant": "neutral" | "primary" | "success" | "warning" | "danger";
+        "size": "sm" | "md";
     }
     interface SlimButtonAttributes {
-        "variant": Variant;
-        "size": Size;
+        "variant": "primary" | "secondary" | "danger" | "ghost";
+        "size": "sm" | "md" | "lg";
         "disabled": boolean;
         "loading": boolean;
         "type": "button" | "submit" | "reset";
@@ -496,6 +742,19 @@ declare namespace LocalJSX {
         "required": boolean;
         "autocomplete": string;
         "inputId": string;
+    }
+    interface SlimModalAttributes {
+        "open": boolean;
+        "heading": string;
+    }
+    interface SlimPlaygroundSidebarAttributes {
+        "heading": string;
+        "active": string;
+        "collapsed": boolean;
+        "collapsible": boolean;
+        "pinnedTop": number;
+        "pinnedLeft": number;
+        "pinnedBottom": number;
     }
     interface SlimSelectAttributes {
         "label": string;
@@ -532,6 +791,14 @@ declare namespace LocalJSX {
         "minlength": number;
         "textareaId": string;
     }
+    interface SlimTooltipAttributes {
+        "text": string;
+        "placement": Placement;
+        "offset": number;
+        "maxWidth": number;
+        "disabled": boolean;
+        "open": boolean;
+    }
 
     interface IntrinsicElements {
         "slim-alert": Omit<SlimAlert, keyof SlimAlertAttributes> & { [K in keyof SlimAlert & keyof SlimAlertAttributes]?: SlimAlert[K] } & { [K in keyof SlimAlert & keyof SlimAlertAttributes as `attr:${K}`]?: SlimAlertAttributes[K] } & { [K in keyof SlimAlert & keyof SlimAlertAttributes as `prop:${K}`]?: SlimAlert[K] };
@@ -539,9 +806,12 @@ declare namespace LocalJSX {
         "slim-button": Omit<SlimButton, keyof SlimButtonAttributes> & { [K in keyof SlimButton & keyof SlimButtonAttributes]?: SlimButton[K] } & { [K in keyof SlimButton & keyof SlimButtonAttributes as `attr:${K}`]?: SlimButtonAttributes[K] } & { [K in keyof SlimButton & keyof SlimButtonAttributes as `prop:${K}`]?: SlimButton[K] };
         "slim-checkbox": Omit<SlimCheckbox, keyof SlimCheckboxAttributes> & { [K in keyof SlimCheckbox & keyof SlimCheckboxAttributes]?: SlimCheckbox[K] } & { [K in keyof SlimCheckbox & keyof SlimCheckboxAttributes as `attr:${K}`]?: SlimCheckboxAttributes[K] } & { [K in keyof SlimCheckbox & keyof SlimCheckboxAttributes as `prop:${K}`]?: SlimCheckbox[K] };
         "slim-input": Omit<SlimInput, keyof SlimInputAttributes> & { [K in keyof SlimInput & keyof SlimInputAttributes]?: SlimInput[K] } & { [K in keyof SlimInput & keyof SlimInputAttributes as `attr:${K}`]?: SlimInputAttributes[K] } & { [K in keyof SlimInput & keyof SlimInputAttributes as `prop:${K}`]?: SlimInput[K] };
+        "slim-modal": Omit<SlimModal, keyof SlimModalAttributes> & { [K in keyof SlimModal & keyof SlimModalAttributes]?: SlimModal[K] } & { [K in keyof SlimModal & keyof SlimModalAttributes as `attr:${K}`]?: SlimModalAttributes[K] } & { [K in keyof SlimModal & keyof SlimModalAttributes as `prop:${K}`]?: SlimModal[K] };
+        "slim-playground-sidebar": Omit<SlimPlaygroundSidebar, keyof SlimPlaygroundSidebarAttributes> & { [K in keyof SlimPlaygroundSidebar & keyof SlimPlaygroundSidebarAttributes]?: SlimPlaygroundSidebar[K] } & { [K in keyof SlimPlaygroundSidebar & keyof SlimPlaygroundSidebarAttributes as `attr:${K}`]?: SlimPlaygroundSidebarAttributes[K] } & { [K in keyof SlimPlaygroundSidebar & keyof SlimPlaygroundSidebarAttributes as `prop:${K}`]?: SlimPlaygroundSidebar[K] };
         "slim-select": Omit<SlimSelect, keyof SlimSelectAttributes> & { [K in keyof SlimSelect & keyof SlimSelectAttributes]?: SlimSelect[K] } & { [K in keyof SlimSelect & keyof SlimSelectAttributes as `attr:${K}`]?: SlimSelectAttributes[K] } & { [K in keyof SlimSelect & keyof SlimSelectAttributes as `prop:${K}`]?: SlimSelect[K] };
         "slim-switch": Omit<SlimSwitch, keyof SlimSwitchAttributes> & { [K in keyof SlimSwitch & keyof SlimSwitchAttributes]?: SlimSwitch[K] } & { [K in keyof SlimSwitch & keyof SlimSwitchAttributes as `attr:${K}`]?: SlimSwitchAttributes[K] } & { [K in keyof SlimSwitch & keyof SlimSwitchAttributes as `prop:${K}`]?: SlimSwitch[K] };
         "slim-textarea": Omit<SlimTextarea, keyof SlimTextareaAttributes> & { [K in keyof SlimTextarea & keyof SlimTextareaAttributes]?: SlimTextarea[K] } & { [K in keyof SlimTextarea & keyof SlimTextareaAttributes as `attr:${K}`]?: SlimTextareaAttributes[K] } & { [K in keyof SlimTextarea & keyof SlimTextareaAttributes as `prop:${K}`]?: SlimTextarea[K] };
+        "slim-tooltip": Omit<SlimTooltip, keyof SlimTooltipAttributes> & { [K in keyof SlimTooltip & keyof SlimTooltipAttributes]?: SlimTooltip[K] } & { [K in keyof SlimTooltip & keyof SlimTooltipAttributes as `attr:${K}`]?: SlimTooltipAttributes[K] } & { [K in keyof SlimTooltip & keyof SlimTooltipAttributes as `prop:${K}`]?: SlimTooltip[K] };
     }
 }
 export { LocalJSX as JSX };
@@ -553,9 +823,12 @@ declare module "@stencil/core" {
             "slim-button": LocalJSX.IntrinsicElements["slim-button"] & JSXBase.HTMLAttributes<HTMLSlimButtonElement>;
             "slim-checkbox": LocalJSX.IntrinsicElements["slim-checkbox"] & JSXBase.HTMLAttributes<HTMLSlimCheckboxElement>;
             "slim-input": LocalJSX.IntrinsicElements["slim-input"] & JSXBase.HTMLAttributes<HTMLSlimInputElement>;
+            "slim-modal": LocalJSX.IntrinsicElements["slim-modal"] & JSXBase.HTMLAttributes<HTMLSlimModalElement>;
+            "slim-playground-sidebar": LocalJSX.IntrinsicElements["slim-playground-sidebar"] & JSXBase.HTMLAttributes<HTMLSlimPlaygroundSidebarElement>;
             "slim-select": LocalJSX.IntrinsicElements["slim-select"] & JSXBase.HTMLAttributes<HTMLSlimSelectElement>;
             "slim-switch": LocalJSX.IntrinsicElements["slim-switch"] & JSXBase.HTMLAttributes<HTMLSlimSwitchElement>;
             "slim-textarea": LocalJSX.IntrinsicElements["slim-textarea"] & JSXBase.HTMLAttributes<HTMLSlimTextareaElement>;
+            "slim-tooltip": LocalJSX.IntrinsicElements["slim-tooltip"] & JSXBase.HTMLAttributes<HTMLSlimTooltipElement>;
         }
     }
 }

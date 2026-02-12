@@ -7,14 +7,17 @@
 
 /* eslint-disable */
 
-import { SlimAlert as SlimAlertElement, defineCustomElement as defineSlimAlert } from "@slim-ds/web-components/dist/components/slim-alert.js";
-import { SlimBadge as SlimBadgeElement, defineCustomElement as defineSlimBadge } from "@slim-ds/web-components/dist/components/slim-badge.js";
-import { SlimButton as SlimButtonElement, defineCustomElement as defineSlimButton } from "@slim-ds/web-components/dist/components/slim-button.js";
-import { SlimCheckbox as SlimCheckboxElement, defineCustomElement as defineSlimCheckbox } from "@slim-ds/web-components/dist/components/slim-checkbox.js";
-import { SlimInput as SlimInputElement, defineCustomElement as defineSlimInput } from "@slim-ds/web-components/dist/components/slim-input.js";
-import { SlimSelect as SlimSelectElement, defineCustomElement as defineSlimSelect } from "@slim-ds/web-components/dist/components/slim-select.js";
-import { SlimSwitch as SlimSwitchElement, defineCustomElement as defineSlimSwitch } from "@slim-ds/web-components/dist/components/slim-switch.js";
-import { SlimTextarea as SlimTextareaElement, defineCustomElement as defineSlimTextarea } from "@slim-ds/web-components/dist/components/slim-textarea.js";
+import { SlimAlert as SlimAlertElement, defineCustomElement as defineSlimAlert } from "@slimkhemiri/web-components/dist/components/slim-alert.js";
+import { SlimBadge as SlimBadgeElement, defineCustomElement as defineSlimBadge } from "@slimkhemiri/web-components/dist/components/slim-badge.js";
+import { SlimButton as SlimButtonElement, defineCustomElement as defineSlimButton } from "@slimkhemiri/web-components/dist/components/slim-button.js";
+import { SlimCheckbox as SlimCheckboxElement, defineCustomElement as defineSlimCheckbox } from "@slimkhemiri/web-components/dist/components/slim-checkbox.js";
+import { SlimInput as SlimInputElement, defineCustomElement as defineSlimInput } from "@slimkhemiri/web-components/dist/components/slim-input.js";
+import { SlimModal as SlimModalElement, defineCustomElement as defineSlimModal } from "@slimkhemiri/web-components/dist/components/slim-modal.js";
+import { SlimPlaygroundSidebar as SlimPlaygroundSidebarElement, defineCustomElement as defineSlimPlaygroundSidebar } from "@slimkhemiri/web-components/dist/components/slim-playground-sidebar.js";
+import { SlimSelect as SlimSelectElement, defineCustomElement as defineSlimSelect } from "@slimkhemiri/web-components/dist/components/slim-select.js";
+import { SlimSwitch as SlimSwitchElement, defineCustomElement as defineSlimSwitch } from "@slimkhemiri/web-components/dist/components/slim-switch.js";
+import { SlimTextarea as SlimTextareaElement, defineCustomElement as defineSlimTextarea } from "@slimkhemiri/web-components/dist/components/slim-textarea.js";
+import { SlimTooltip as SlimTooltipElement, defineCustomElement as defineSlimTooltip } from "@slimkhemiri/web-components/dist/components/slim-tooltip.js";
 import type { EventName, StencilReactComponent } from '@stencil/react-output-target/runtime';
 import { createComponent } from '@stencil/react-output-target/runtime';
 import React from 'react';
@@ -74,6 +77,34 @@ export const SlimInput: StencilReactComponent<SlimInputElement, SlimInputEvents>
     defineCustomElement: defineSlimInput
 });
 
+type SlimModalEvents = { onSlimClose: EventName<CustomEvent<void>> };
+
+export const SlimModal: StencilReactComponent<SlimModalElement, SlimModalEvents> = /*@__PURE__*/ createComponent<SlimModalElement, SlimModalEvents>({
+    tagName: 'slim-modal',
+    elementClass: SlimModalElement,
+    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+    react: React,
+    events: { onSlimClose: 'slimClose' } as SlimModalEvents,
+    defineCustomElement: defineSlimModal
+});
+
+type SlimPlaygroundSidebarEvents = {
+    onSlimSelect: EventName<CustomEvent<string>>,
+    onSlimToggle: EventName<CustomEvent<boolean>>
+};
+
+export const SlimPlaygroundSidebar: StencilReactComponent<SlimPlaygroundSidebarElement, SlimPlaygroundSidebarEvents> = /*@__PURE__*/ createComponent<SlimPlaygroundSidebarElement, SlimPlaygroundSidebarEvents>({
+    tagName: 'slim-playground-sidebar',
+    elementClass: SlimPlaygroundSidebarElement,
+    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+    react: React,
+    events: {
+        onSlimSelect: 'slimSelect',
+        onSlimToggle: 'slimToggle'
+    } as SlimPlaygroundSidebarEvents,
+    defineCustomElement: defineSlimPlaygroundSidebar
+});
+
 type SlimSelectEvents = { onSlimChange: EventName<CustomEvent<string>> };
 
 export const SlimSelect: StencilReactComponent<SlimSelectElement, SlimSelectEvents> = /*@__PURE__*/ createComponent<SlimSelectElement, SlimSelectEvents>({
@@ -105,4 +136,21 @@ export const SlimTextarea: StencilReactComponent<SlimTextareaElement, SlimTextar
     react: React,
     events: { onSlimChange: 'slimChange' } as SlimTextareaEvents,
     defineCustomElement: defineSlimTextarea
+});
+
+type SlimTooltipEvents = {
+    onSlimShow: EventName<CustomEvent<void>>,
+    onSlimHide: EventName<CustomEvent<void>>
+};
+
+export const SlimTooltip: StencilReactComponent<SlimTooltipElement, SlimTooltipEvents> = /*@__PURE__*/ createComponent<SlimTooltipElement, SlimTooltipEvents>({
+    tagName: 'slim-tooltip',
+    elementClass: SlimTooltipElement,
+    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+    react: React,
+    events: {
+        onSlimShow: 'slimShow',
+        onSlimHide: 'slimHide'
+    } as SlimTooltipEvents,
+    defineCustomElement: defineSlimTooltip
 });

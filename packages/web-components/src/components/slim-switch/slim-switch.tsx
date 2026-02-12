@@ -1,4 +1,5 @@
 import { Component, Event, EventEmitter, Prop, State, h } from "@stencil/core";
+import { createId } from "../../utils/id";
 
 @Component({
   tag: "slim-switch",
@@ -21,7 +22,7 @@ export class SlimSwitch {
   @State() private _id = "";
 
   componentWillLoad() {
-    this._id = this.switchId ?? `slim-switch-${Math.random().toString(16).slice(2)}`;
+    this._id = this.switchId ?? createId("slim-switch");
   }
 
   private onChange = (e: Event) => {

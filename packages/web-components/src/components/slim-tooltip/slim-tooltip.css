@@ -1,0 +1,118 @@
+:host {
+  display: inline-block;
+  position: relative;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+:host([open]) .tooltip {
+  opacity: 1;
+}
+
+.bubble {
+  --bg: var(--slim-tooltip-bg, var(--sl-text));
+  --fg: var(--slim-tooltip-fg, var(--sl-surface));
+
+  max-width: var(--slim-tooltip-max-width, 240px);
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--fg);
+  font: 600 var(--sl-font-size-2) / 1.2 var(--sl-font-family);
+  box-shadow: 0 10px 30px color-mix(in srgb, #000 25%, transparent);
+}
+
+.tooltip::before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--slim-tooltip-bg, var(--sl-text));
+  transform: rotate(45deg);
+}
+
+/* TOP */
+:host([placement="top"]) .tooltip {
+  left: 50%;
+  bottom: calc(100% + var(--slim-tooltip-offset, 8px));
+  transform: translateX(-50%) translateY(4px);
+}
+
+:host([placement="top"][open]) .tooltip {
+  transform: translateX(-50%) translateY(0);
+}
+
+:host([placement="top"]) .tooltip::before {
+  left: 50%;
+  bottom: -5px;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* BOTTOM */
+:host([placement="bottom"]) .tooltip {
+  left: 50%;
+  top: calc(100% + var(--slim-tooltip-offset, 8px));
+  transform: translateX(-50%) translateY(-4px);
+}
+
+:host([placement="bottom"][open]) .tooltip {
+  transform: translateX(-50%) translateY(0);
+}
+
+:host([placement="bottom"]) .tooltip::before {
+  left: 50%;
+  top: -5px;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* LEFT */
+:host([placement="left"]) .tooltip {
+  top: 50%;
+  right: calc(100% + var(--slim-tooltip-offset, 8px));
+  transform: translateY(-50%) translateX(4px);
+}
+
+:host([placement="left"][open]) .tooltip {
+  transform: translateY(-50%) translateX(0);
+}
+
+:host([placement="left"]) .tooltip::before {
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* RIGHT */
+:host([placement="right"]) .tooltip {
+  top: 50%;
+  left: calc(100% + var(--slim-tooltip-offset, 8px));
+  transform: translateY(-50%) translateX(-4px);
+}
+
+:host([placement="right"][open]) .tooltip {
+  transform: translateY(-50%) translateX(0);
+}
+
+:host([placement="right"]) .tooltip::before {
+  left: -5px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tooltip {
+    transition: none;
+  }
+}
+

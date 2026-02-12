@@ -1,6 +1,5 @@
 import { Component, Event, EventEmitter, Prop, State, h } from "@stencil/core";
-
-type Option = { value: string; label: string; disabled?: boolean };
+import { createId } from "../../utils/id";
 
 @Component({
   tag: "slim-select",
@@ -14,7 +13,7 @@ export class SlimSelect {
 
   @Prop() name?: string;
   @Prop({ mutable: true }) value = "";
-  @Prop() options: Option[] = [];
+  @Prop() options: { value: string; label: string; disabled?: boolean }[] = [];
   @Prop() disabled = false;
   @Prop() required = false;
   @Prop() selectId?: string;
@@ -24,7 +23,7 @@ export class SlimSelect {
   @State() private _id = "";
 
   componentWillLoad() {
-    this._id = this.selectId ?? `slim-select-${Math.random().toString(16).slice(2)}`;
+    this._id = this.selectId ?? createId("slim-select");
   }
 
   private onChange = (e: Event) => {

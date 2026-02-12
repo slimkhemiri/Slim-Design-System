@@ -1,4 +1,5 @@
 import { Component, Event, EventEmitter, Prop, State, h } from "@stencil/core";
+import { createId } from "../../utils/id";
 
 @Component({
   tag: "slim-textarea",
@@ -26,7 +27,7 @@ export class SlimTextarea {
   @State() private _id = "";
 
   componentWillLoad() {
-    this._id = this.textareaId ?? `slim-textarea-${Math.random().toString(16).slice(2)}`;
+    this._id = this.textareaId ?? createId("slim-textarea");
   }
 
   private onInput = (e: Event) => {

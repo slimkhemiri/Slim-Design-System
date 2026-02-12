@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "@slim-ds/tokens/dist/tokens.css";
+import "@slim-ds/tokens/tokens.css";
 
 import { defineCustomElements } from "@slimkhemiri/react-design-system";
 import { App } from "./App";

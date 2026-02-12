@@ -48,7 +48,7 @@
 }
 
 .native:focus-visible + .track {
-  outline: 3px solid color-mix(in srgb, var(--sl-focus), transparent 70%);
+  outline: var(--sl-focus-ring);
   outline-offset: 2px;
 }
 

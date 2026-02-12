@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   color: var(--sl-text);
   background: var(--sl-surface);
   font-family: var(--sl-font-family);
@@ -60,6 +60,30 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 
+.layout {
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 72px;
+  --sidebar-gap: 16px;
+
+  /* Sidebar is fixed-position, so we reserve space for it here */
+  padding-left: calc(var(--sidebar-width) + var(--sidebar-gap));
+}
+
+.layout.isCollapsed {
+  padding-left: calc(var(--sidebar-collapsed-width) + var(--sidebar-gap));
+}
+
+/* Sidebar is now a Stencil web component (`slim-playground-sidebar`) */
+slim-playground-sidebar {
+  --slim-sidebar-width: var(--sidebar-width);
+  --slim-sidebar-collapsed-width: var(--sidebar-collapsed-width);
+}
+
+.content {
+  display: grid;
+  gap: 16px;
+}
+
 .card {
   border: 1px solid var(--sl-border);
   border-radius: var(--sl-radius-2);
@@ -83,3 +107,13 @@ body {
   gap: 12px;
 }
 
+@media (max-width: 860px) {
+  .layout,
+  .layout.isCollapsed {
+    padding-left: 0;
+  }
+
+  slim-playground-sidebar {
+    position: static;
+  }
+}

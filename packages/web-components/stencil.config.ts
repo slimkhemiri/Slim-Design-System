@@ -19,7 +19,7 @@ export const config: Config = {
     },
     reactOutputTarget({
       outDir: "../react/src",
-      stencilPackageName: "@slim-ds/web-components"
+      stencilPackageName: "@slimkhemiri/web-components"
     })
   ]
 };
