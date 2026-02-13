@@ -1,7 +1,7 @@
 {
-  "name": "@slim-ds/tokens",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@slimkhemiri/tokens",
+  "version": "0.1.1",
+  "private": false,
   "type": "module",
   "files": [
     "dist/"
@@ -13,10 +13,12 @@
     },
     "./tokens.css": "./dist/tokens.css"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "node ./scripts/build-tokens.mjs",
     "clean": "node ./scripts/clean.mjs",
     "prepack": "npm run build"
   }
 }
-

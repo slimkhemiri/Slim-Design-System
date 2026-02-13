@@ -78,6 +78,7 @@ export namespace Components {
         "inputId"?: string;
         "label"?: string;
         "name"?: string;
+        "placeholder"?: string;
         /**
           * @default false
          */
@@ -521,6 +522,7 @@ declare namespace LocalJSX {
         "label"?: string;
         "name"?: string;
         "onSlimChange"?: (event: SlimInputCustomEvent<string>) => void;
+        "placeholder"?: string;
         /**
           * @default false
          */
@@ -742,6 +744,7 @@ declare namespace LocalJSX {
         "required": boolean;
         "autocomplete": string;
         "inputId": string;
+        "placeholder": string;
     }
     interface SlimModalAttributes {
         "open": boolean;

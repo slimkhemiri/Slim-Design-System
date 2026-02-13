@@ -5,7 +5,6 @@ React bindings for the **Slim Design System** (Stencil Web Components).
 This package provides:
 
 - React components like `SlimButton`, `SlimInput`, …
-- `defineCustomElements()` to register the underlying web components
 
 ## Install
 
@@ -13,39 +12,9 @@ This package provides:
 npm i @slimkhemiri/react-design-system
 ```
 
-This package depends on `@slimkhemiri/web-components` (installed automatically).
+This package depends on `@slimkhemiri/web-components` and `@slimkhemiri/tokens` (installed automatically).
 
-If you see `E404 Not Found` for `@slimkhemiri/web-components`, it means that package is **not published to your registry yet**. Publish it first (see repo-level publishing notes), or install from local tarballs.
-
-```bash
-npm whoami
-npm login
 ```
-
-## Usage
-
-Register the custom elements once, then use the React components.
-
-```ts
-// main.tsx / index.tsx
-import React from "react";
-import ReactDOM from "react-dom/client";
-
-import { defineCustomElements } from "@slimkhemiri/react-design-system";
-
-// Registers <slim-button />, <slim-input />, ... as custom elements
-defineCustomElements();
-
-import { App } from "./App";
-
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-```
-
-```tsx
 // App.tsx
 import { SlimButton, SlimInput } from "@slimkhemiri/react-design-system";
 
@@ -59,81 +28,89 @@ export function App() {
 }
 ```
 
-## Troubleshooting: "Invalid hook call" / `useRef` is null
 
-This error almost always means **React is resolved twice** (or `react` / `react-dom` versions don’t match) in your consuming app.
-
-### 1) Verify there is only one React
-
-```bash
-npm ls react react-dom
-```
-
-You should see **a single version** of `react` and `react-dom`.
-
-### 1bis) Quick fix (npm): force a single React via overrides
-
-If you see something like `@slimkhemiri/react-design-system -> react@18.x` while your app is on React 19 (or vice-versa),
-force React to a single version in your app:
-
-```json
-{
-  "overrides": {
-    "@slimkhemiri/react-design-system": {
-      "react": "19.2.4",
-      "react-dom": "19.2.4"
-    }
-  }
-}
-```
-
-Then reinstall (`rm -rf node_modules package-lock.json` + `npm i`).
-
-### 2) If you use Vite + monorepo / workspace / `npm link`
-
-Add React dedupe to your consuming app’s `vite.config.ts`:
-
-```ts
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-
-export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    dedupe: ["react", "react-dom"]
-  }
-});
-```
-
-## Next.js / SSR notes
-
-Custom elements must be defined in the browser. In Next.js, call `defineCustomElements()` from a client component:
-
-```tsx
-"use client";
-
-import { useEffect } from "react";
-import { defineCustomElements } from "@slimkhemiri/react-design-system";
-
-export function SlimDesignSystemProvider({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
-    defineCustomElements();
-  }, []);
-
-  return children;
-}
 ```
 
 ## Components
 
 Currently exported:
 
-- `SlimAlert`
-- `SlimBadge`
-- `SlimButton`
-- `SlimCheckbox` (`onSlimChange` → `CustomEvent<boolean>`)
-- `SlimInput` (`onSlimChange` → `CustomEvent<string>`)
-- `SlimSelect` (`onSlimChange` → `CustomEvent<string>`)
-- `SlimSwitch` (`onSlimChange` → `CustomEvent<boolean>`)
-- `SlimTextarea` (`onSlimChange` → `CustomEvent<string>`)
+- `SlimAlert` - Info, success, warning, and danger alerts
+- `SlimBadge` - Status badges with multiple variants
+- `SlimButton` - Primary, secondary, ghost, and danger buttons with loading states
+- `SlimCheckbox` - Checkbox input (`onSlimChange` → `CustomEvent<boolean>`)
+- `SlimInput` - Text input with validation (`onSlimChange` → `CustomEvent<string>`)
+- `SlimSelect` - Dropdown select (`onSlimChange` → `CustomEvent<string>`)
+- `SlimSwitch` - Toggle switch (`onSlimChange` → `CustomEvent<boolean>`)
+- `SlimTextarea` - Multi-line text input (`onSlimChange` → `CustomEvent<string>`)
+- `SlimTooltip` - Contextual tooltip with multiple placements
+- `SlimPlaygroundSidebar` - Collapsible sidebar navigation
+
+## Design Tokens
+
+Access design tokens in JavaScript for dynamic styling:
+
+```tsx
+import { tokens } from "@slimkhemiri/tokens";
+
+// Access base (light theme) tokens
+const primaryColor = tokens.base['--sl-primary']; // "#581d74"
+const spacing = tokens.base['--sl-space-4']; // "16px"
+
+// Access theme-specific tokens
+const darkSurface = tokens.themes.dark['--sl-surface']; // "#0b1220"
+const hcPrimary = tokens.themes.hc['--sl-primary']; // "#fff"
+
+// Use in your components
+function MyComponent() {
+  return (
+    <div style={{ 
+      padding: spacing,
+      backgroundColor: primaryColor 
+    }}>
+      Custom styled content
+    </div>
+  );
+}
+```
+
+### CSS Variables
+
+All tokens are also available as CSS variables:
+
+```css
+.my-component {
+  /* Colors */
+  background: var(--sl-primary);
+  color: var(--sl-primary-contrast);
+  
+  /* Spacing */
+  padding: var(--sl-space-4);
+  
+  /* Typography */
+  font-size: var(--sl-font-size-2);
+  
+  /* Border Radius */
+  border-radius: var(--sl-radius-1);
+  
+  /* Transitions */
+  transition: all var(--sl-duration-fast);
+}
+```
+
+## Theming
+
+The design system supports three themes: Light (default), Dark, and High Contrast.
+
+```tsx
+// Change theme dynamically
+document.documentElement.dataset.theme = 'dark'; // or 'hc' for high contrast
+```
+
+## Resources
+
+- 📚 [Full Documentation](https://your-playground-url.com/documentation)
+- 🎨 [Color Palette](https://your-playground-url.com/colors)
+- 🧩 [Component Examples](https://your-playground-url.com/components)
+- 📦 [NPM Package](https://www.npmjs.com/package/@slimkhemiri/react-design-system)
 

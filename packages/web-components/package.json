@@ -1,6 +1,6 @@
 {
   "name": "@slimkhemiri/web-components",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "type": "module",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -30,8 +30,8 @@
     "loader/"
   ],
   "scripts": {
-    "build": "pnpm --filter @slim-ds/tokens build && node ./scripts/sync-tokens.mjs && stencil build",
-    "dev": "pnpm --filter @slim-ds/tokens build && node ./scripts/sync-tokens.mjs && stencil build --watch --serve",
+    "build": "pnpm --filter @slimkhemiri/tokens build && node ./scripts/sync-tokens.mjs && stencil build",
+    "dev": "pnpm --filter @slimkhemiri/tokens build && node ./scripts/sync-tokens.mjs && stencil build --watch --serve",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "test": "stencil test --spec --e2e",
     "clean": "node ./scripts/clean.mjs",

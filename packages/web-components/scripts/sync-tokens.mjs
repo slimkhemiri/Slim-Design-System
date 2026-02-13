@@ -6,10 +6,9 @@ const out = path.resolve("src/global/generated/tokens.css");
 
 if (!fs.existsSync(src)) {
   console.error(
-    `Tokens file not found at ${src}. Did you run "pnpm --filter @slim-ds/tokens build"?`
+    `Tokens file not found at ${src}. Did you run "pnpm --filter @slimkhemiri/tokens build"?`
   );
-  process.exitCode = 1;
-  return;
+  process.exit(1);
 }
 
 fs.mkdirSync(path.dirname(out), { recursive: true });

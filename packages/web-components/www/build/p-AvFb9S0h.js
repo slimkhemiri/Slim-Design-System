@@ -1,0 +1,1 @@
+let t=0;function e(e){return t+=1,`${e}-${t}`}export{e as c}

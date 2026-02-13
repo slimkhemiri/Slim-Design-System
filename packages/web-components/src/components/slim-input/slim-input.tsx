@@ -18,6 +18,8 @@ export class SlimInput {
   @Prop() required = false;
   @Prop() autocomplete?: string;
   @Prop() inputId?: string;
+  @Prop({ reflect: true }) placeholder?: string;
+
 
   @Event() slimChange!: EventEmitter<string>;
 
@@ -64,6 +66,7 @@ export class SlimInput {
           aria-invalid={this.error ? "true" : "false"}
           aria-describedby={describedBy || undefined}
           onInput={this.onInput}
+          placeholder={this.placeholder}
         />
 
         {this.hint ? (

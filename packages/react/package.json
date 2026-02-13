@@ -1,6 +1,6 @@
 {
   "name": "@slimkhemiri/react-design-system",
-  "version": "0.1.3",
+  "version": "0.1.13",
   "private": false,
   "type": "module",
   "main": "dist/index.js",
@@ -22,12 +22,13 @@
     "build": "tsc -p tsconfig.build.json",
     "clean": "node ./scripts/clean.mjs",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
-    "storybook": "pnpm --filter @slim-ds/tokens build && pnpm --filter @slimkhemiri/web-components build && storybook dev -p 6006",
-    "build-storybook": "pnpm --filter @slim-ds/tokens build && pnpm --filter @slimkhemiri/web-components build && storybook build",
+    "storybook": "pnpm --filter @slimkhemiri/tokens build && pnpm --filter @slimkhemiri/web-components build && storybook dev -p 6006",
+    "build-storybook": "pnpm --filter @slimkhemiri/tokens build && pnpm --filter @slimkhemiri/web-components build && storybook build",
     "prepack": "npm run build"
   },
   "dependencies": {
-    "@slimkhemiri/web-components": "^0.1.1",
+    "@slimkhemiri/tokens": "^0.1.1",
+    "@slimkhemiri/web-components": "^0.1.4",
     "@stencil/react-output-target": "^0.8.2"
   },
   "peerDependencies": {
